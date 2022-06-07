@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   colors: <Color>[
                 Color(0xFFf6f9d8),
                 Color(0xFF0e3b27),
-              ])),
+              ]
+              )
+          ),
         ),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
@@ -132,10 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 200,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.blue,
-                        width: 4,
-                      ),
+
                     ),
                     child: TextButton(
                       style: TextButton.styleFrom(
@@ -167,10 +167,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 200,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.blue,
-                        width: 4,
-                      ),
                     ),
                     child: TextButton(
                       style: TextButton.styleFrom(
@@ -179,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Map()),
+                          MaterialPageRoute(builder: (context) =>  Map()),
                         );
                       },
                       child: getText('Map'),
@@ -201,10 +197,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   width: 200,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.blue,
-                        width: 4,
-                      ),
                     ),
                     child: TextButton(
                       style: TextButton.styleFrom(
@@ -271,26 +263,36 @@ class Lineup extends StatelessWidget {
 }
 
 class Map extends StatelessWidget {
-  const Map({Key? key}) : super(key: key);
+  late GoogleMapController mapController;
+
+  final LatLng _center = const LatLng(45.521563, -122.677433);
+
+  void _onMapCreated(GoogleMapController controller) {
+    mapController = controller;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Map'),
-      ),
-      body: Center(
-        child: Text(
-          'Google API Implementation/Custom map',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontWeight: FontWeight.w900,
-            color: Colors.black,
-            fontSize: 50,
-            height: 2.0,
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            tooltip: "Go Back",
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          title: const Text('Maps Sample App'),
+          backgroundColor: Colors.green[700],
+        ),
+        body: GoogleMap(
+          onMapCreated: _onMapCreated,
+          initialCameraPosition: CameraPosition(
+            target: _center,
+            zoom: 11.0,
           ),
         ),
-        // Navigate back to first route when tapped.
       ),
     );
   }
@@ -303,11 +305,11 @@ class Info extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Information'),
+        backgroundColor: Color(0xffb68df5),
+        title: Text('Information'),
       ),
       body: Scrollbar(
         isAlwaysShown: true,
-
         //lets you scroll
         child: SingleChildScrollView(
           child: Image.asset('images/guide.png'),
