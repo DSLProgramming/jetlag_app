@@ -57,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
         //transparent but figure out how to remove
         iconTheme: IconThemeData(color: Color(0x00b68df5)),
         toolbarHeight: 87,
+        backgroundColor: Color(0xffFFF),
         flexibleSpace: Container(
           child: Image.asset('images/jetlag.jpg'),
         ),
@@ -96,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
+
       drawer: Drawer(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,9 +214,14 @@ class _MyHomePageState extends State<MyHomePage> {
       );
 }
 
-class Lineup extends StatelessWidget {
+class Lineup extends StatefulWidget {
   const Lineup({Key? key}) : super(key: key);
 
+  @override
+  State<Lineup> createState() => _LineupState();
+}
+
+class _LineupState extends State<Lineup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -233,11 +240,8 @@ class Lineup extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        child: Column(
-          children: <Widget>[_stackedContainers(), _navigationButtons()],
-        ),
-        padding: EdgeInsets.all(5.0),
+      body: Column(
+        children: <Widget>[_stackedContainers(), _navigationButtons()],
       ),
     );
   }
@@ -247,19 +251,37 @@ class Lineup extends StatelessWidget {
       child: IndexedStack(
         index: index,
         children: <Widget>[
-          Container(
-            child: Center(
-              child: Image.asset("images/spellart.jpg"),
+          Scrollbar(
+            isAlwaysShown: true,
+            child: SingleChildScrollView(
+              child: InteractiveViewer(
+                boundaryMargin: const EdgeInsets.all(0),
+                minScale: 0.1,
+                maxScale: 1.6,
+                child: Image.asset("images/spellart.png"),
+              ),
             ),
           ),
-          Container(
-            child: Center(
-              child: Image.asset("images/central.jpg"),
+          Scrollbar(
+            isAlwaysShown: true,
+            child: SingleChildScrollView(
+              child: InteractiveViewer(
+                boundaryMargin: const EdgeInsets.all(0),
+                minScale: 0.1,
+                maxScale: 1.6,
+                child: Image.asset("images/central.png"),
+              ),
             ),
           ),
-          Container(
-            child: Center(
-              child: Image.asset("images/pangea.jpg"),
+          Scrollbar(
+            isAlwaysShown: true,
+            child: SingleChildScrollView(
+              child: InteractiveViewer(
+                boundaryMargin: const EdgeInsets.all(0),
+                minScale: 0.1,
+                maxScale: 1.6,
+                child: Image.asset("images/pangea.png"),
+              ),
             ),
           ),
         ],
@@ -361,7 +383,7 @@ class Map extends StatelessWidget {
           minScale: 0.1,
           maxScale: 1.6,
           child: Center(
-            child: Image.asset('images/map.png'),
+            child: Image.asset('images/Map.png'),
           ),
         ),
       ),
