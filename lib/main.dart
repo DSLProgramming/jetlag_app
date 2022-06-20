@@ -1,6 +1,5 @@
 //Created by Dan Leykin for JetLAG Music Festival
 
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -249,20 +248,20 @@ class Lineup extends StatelessWidget {
         index: index,
         children: <Widget>[
           Container(
-              child: Center(
-                  child: Image.asset(
-            "assets/images/spellart.jpg",
-          ))),
+            child: Center(
+              child: Image.asset("images/spellart.jpg"),
+            ),
+          ),
           Container(
-              child: Center(
-                  child: Image.asset(
-            "assets/images/central.jpg",
-          ))),
+            child: Center(
+              child: Image.asset("images/central.jpg"),
+            ),
+          ),
           Container(
-              child: Center(
-                  child: Image.asset(
-            "assets/images/pangea.jpg",
-          ))),
+            child: Center(
+              child: Image.asset("images/pangea.jpg"),
+            ),
+          ),
         ],
       ),
     );
@@ -280,7 +279,9 @@ class Lineup extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                index = 0;
+                setState(() {
+                  index = 0;
+                });
               },
               child: StageText("SPELLART"),
             ),
@@ -294,9 +295,11 @@ class Lineup extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                index = 0;
+                setState(() {
+                  index = 1;
+                });
               },
-              child: StageText("SPELLART"),
+              child: StageText("CENTRAL"),
             ),
           ),
         ),
@@ -308,9 +311,11 @@ class Lineup extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                index = 0;
+                setState(() {
+                  index = 2;
+                });
               },
-              child: StageText("SPELLART"),
+              child: StageText("PANGEA"),
             ),
           ),
         ),
