@@ -1,11 +1,14 @@
+//Created by Dan Leykin for JetLAG Music Festival
+
+
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 const primaryColor = Color(0xFFffffff);
+int index = 0;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -52,27 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
-        toolbarHeight: 120,
+        //transparent but figure out how to remove
+        iconTheme: IconThemeData(color: Color(0x00b68df5)),
+        toolbarHeight: 87,
         flexibleSpace: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: <Color>[
-                Color(0xFFf6f9d8),
-                Color(0xFF0e3b27),
-              ]
-              )
-          ),
+          child: Image.asset('images/jetlag.jpg'),
         ),
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: SizedBox(
-          height: 500.0,
-          width: 500,
-          child: Image.asset('images/jetlag.jpg'),
-        ),
       ),
       body: Scrollbar(
         isAlwaysShown: true,
@@ -108,110 +98,92 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            SizedBox(
-              height: 350.0,
-              child: DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color(0xFF000000),
-                ),
-                child: Center(
-                  child: Image.asset('images/regLogo.jpg'),
-                ),
-              ),
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.music_note_rounded,
-                color: Colors.black,
-                size: 80,
-              ),
-              title: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  height: 145,
-                  width: 200,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-
-                    ),
+            Image.asset('images/regLogo.jpg'),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.queue_music,
+                    color: Colors.black,
+                    size: 80,
+                  ),
+                  SizedBox(
+                    height: 155,
+                    width: 200,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        textStyle: TextStyle(fontSize: 40),
+                        textStyle: TextStyle(),
                       ),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Lineup()),
+                          MaterialPageRoute(builder: (context) => Lineup()),
                         );
                       },
                       child: getText('Lineup'),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
-            ListTile(
-              leading: Icon(
-                Icons.map,
-                color: Colors.black,
-                size: 80,
-              ),
-              title: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  height: 145,
-                  width: 200,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                    ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.map_sharp,
+                    color: Colors.black,
+                    size: 80,
+                  ),
+                  SizedBox(
+                    height: 155,
+                    width: 200,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        textStyle: TextStyle(fontSize: 40),
+                        textStyle: TextStyle(),
                       ),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) =>  Map()),
+                          MaterialPageRoute(builder: (context) => Map()),
                         );
                       },
                       child: getText('Map'),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
-            ListTile(
-              leading: Icon(
-                Icons.question_mark_rounded,
-                color: Colors.black,
-                size: 80,
-              ),
-              title: Align(
-                alignment: Alignment.center,
-                child: SizedBox(
-                  height: 145,
-                  width: 200,
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                    ),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.question_mark_rounded,
+                    color: Colors.black,
+                    size: 80,
+                  ),
+                  SizedBox(
+                    height: 155,
+                    width: 200,
                     child: TextButton(
                       style: TextButton.styleFrom(
-                        textStyle: TextStyle(fontSize: 30),
+                        textStyle: TextStyle(),
                       ),
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => const Info()),
+                          MaterialPageRoute(builder: (context) => Info()),
                         );
                       },
                       child: getText('Info'),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ],
@@ -226,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
           fontFamily: 'Raleway',
           fontWeight: FontWeight.bold,
           color: Colors.black,
-          fontSize: 40,
+          fontSize: 50,
         ),
       );
 
@@ -248,49 +220,143 @@ class Lineup extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('2022 Artist Lineup'),
-      ),
-      body: Scrollbar(
-        isAlwaysShown: true,
-
-        //lets you scroll
-        child: SingleChildScrollView(
-          child: Image.asset('images/bannerCrop.png'),
+        backgroundColor: Color(0xff252732),
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            '2022 Artist Lineup',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+              fontSize: 30,
+            ),
+          ),
         ),
+      ),
+      body: Padding(
+        child: Column(
+          children: <Widget>[_stackedContainers(), _navigationButtons()],
+        ),
+        padding: EdgeInsets.all(5.0),
       ),
     );
   }
+
+  Widget _stackedContainers() {
+    return Expanded(
+      child: IndexedStack(
+        index: index,
+        children: <Widget>[
+          Container(
+              child: Center(
+                  child: Image.asset(
+            "assets/images/spellart.jpg",
+          ))),
+          Container(
+              child: Center(
+                  child: Image.asset(
+            "assets/images/central.jpg",
+          ))),
+          Container(
+              child: Center(
+                  child: Image.asset(
+            "assets/images/pangea.jpg",
+          ))),
+        ],
+      ),
+    );
+  }
+
+  Widget _navigationButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff252732),
+            ),
+            child: TextButton(
+              onPressed: () {
+                index = 0;
+              },
+              child: StageText("SPELLART"),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff252732),
+            ),
+            child: TextButton(
+              onPressed: () {
+                index = 0;
+              },
+              child: StageText("SPELLART"),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff252732),
+            ),
+            child: TextButton(
+              onPressed: () {
+                index = 0;
+              },
+              child: StageText("SPELLART"),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget StageText(String contents) => Text(
+        contents,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+          fontWeight: FontWeight.w400,
+        ),
+      );
 }
 
 class Map extends StatelessWidget {
-  late GoogleMapController mapController;
-
-  final LatLng _center = const LatLng(45.521563, -122.677433);
-
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
+  const Map({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            tooltip: "Go Back",
-            onPressed: () {
-              Navigator.pop(context);
-            },
+    return Scaffold(
+      backgroundColor: Color(0xff48887a),
+      appBar: AppBar(
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Festival Map',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+              fontSize: 30,
+            ),
           ),
-          title: const Text('Maps Sample App'),
-          backgroundColor: Colors.green[700],
         ),
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
+      ),
+      body: Container(
+        //lets you scroll
+        child: InteractiveViewer(
+          boundaryMargin: const EdgeInsets.all(10.0),
+          minScale: 0.1,
+          maxScale: 1.6,
+          child: Center(
+            child: Image.asset('images/map.png'),
           ),
         ),
       ),
@@ -306,7 +372,18 @@ class Info extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xffb68df5),
-        title: Text('Information'),
+        title: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Information',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+              fontSize: 30,
+            ),
+          ),
+        ),
       ),
       body: Scrollbar(
         isAlwaysShown: true,
