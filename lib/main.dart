@@ -46,6 +46,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double hei = screenSize.height;
+    double wid = screenSize.height;
+    double bannerHei = hei * 0.2;
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -54,17 +59,40 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        toolbarHeight: bannerHei,
         //transparent but figure out how to remove
-        iconTheme: IconThemeData(color: Color(0x00b68df5)),
-        toolbarHeight: 87,
-        backgroundColor: Color(0xffFFF),
+        backgroundColor: Color(0xFFFF0F00),
         flexibleSpace: Container(
-          child: Image.asset('images/jetlag.jpg'),
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('images/jetlag.jpg'),
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
       ),
-      body: Scrollbar(
+      body: Column(
+        children: <Widget>[mainScreen(), navButtons()],
+      ),
+    );
+  }
+
+  Widget getText(String contents) => Text(
+        contents,
+        style: TextStyle(
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.bold,
+          color: Colors.black,
+          fontSize: 65,
+        ),
+      );
+
+  Widget mainScreen() {
+    Size screenSize = MediaQuery.of(context).size;
+    double wid = screenSize.width;
+    return Expanded(
+      child: Scrollbar(
         isAlwaysShown: true,
         //lets you scroll
         child: SingleChildScrollView(
@@ -97,111 +125,76 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
       ),
-
-      drawer: Drawer(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Image.asset('images/regLogo.jpg'),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Icon(
-                    Icons.queue_music,
-                    color: Colors.black,
-                    size: 80,
-                  ),
-                  SizedBox(
-                    height: 155,
-                    width: 200,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: TextStyle(),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Lineup()),
-                        );
-                      },
-                      child: getText('Lineup'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Icon(
-                    Icons.map_sharp,
-                    color: Colors.black,
-                    size: 80,
-                  ),
-                  SizedBox(
-                    height: 155,
-                    width: 200,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: TextStyle(),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Map()),
-                        );
-                      },
-                      child: getText('Map'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Icon(
-                    Icons.question_mark_rounded,
-                    color: Colors.black,
-                    size: 80,
-                  ),
-                  SizedBox(
-                    height: 155,
-                    width: 200,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        textStyle: TextStyle(),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Info()),
-                        );
-                      },
-                      child: getText('Info'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
-  Widget getText(String contents) => Text(
-        contents,
-        style: TextStyle(
-          fontFamily: 'Raleway',
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-          fontSize: 50,
+  Widget navButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff252732),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Map()),
+                  );
+                },
+                child: navButtonText("Map"),
+              ),
+            ),
+          ),
         ),
-      );
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff252732),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Lineup()),
+                  );
+                },
+                child: navButtonText("Lineup"),
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              color: const Color(0xff252732),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Info()),
+                  );
+                },
+                child: navButtonText("Info"),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget mainTitleText(String contents) => Text(
         contents,
@@ -210,6 +203,16 @@ class _MyHomePageState extends State<MyHomePage> {
           fontWeight: FontWeight.w600,
           color: Colors.black,
           fontSize: 20,
+        ),
+      );
+
+  Widget navButtonText(String contents) => Text(
+        contents,
+        style: TextStyle(
+          fontFamily: 'Lato',
+          fontWeight: FontWeight.w400,
+          color: Colors.white,
+          fontSize: 30,
         ),
       );
 }
@@ -224,8 +227,14 @@ class Lineup extends StatefulWidget {
 class _LineupState extends State<Lineup> {
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double hei = screenSize.height;
+    double wid = screenSize.width;
+    double bannerHei = hei * 0.1;
     return Scaffold(
+      backgroundColor: Color(0xff489082),
       appBar: AppBar(
+        toolbarHeight: bannerHei,
         backgroundColor: Color(0xff252732),
         title: Align(
           alignment: Alignment.centerLeft,
@@ -247,6 +256,8 @@ class _LineupState extends State<Lineup> {
   }
 
   Widget _stackedContainers() {
+    Size screenSize = MediaQuery.of(context).size;
+    double wid = screenSize.width;
     return Expanded(
       child: IndexedStack(
         index: index,
@@ -258,7 +269,15 @@ class _LineupState extends State<Lineup> {
                 boundaryMargin: const EdgeInsets.all(0),
                 minScale: 0.1,
                 maxScale: 1.6,
-                child: Image.asset("images/spellart.png"),
+                child: Container(
+                  child: SizedBox(
+                    width: wid,
+                    child: Image.asset(
+                      'images/spellart.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -269,7 +288,15 @@ class _LineupState extends State<Lineup> {
                 boundaryMargin: const EdgeInsets.all(0),
                 minScale: 0.1,
                 maxScale: 1.6,
-                child: Image.asset("images/central.png"),
+                child: Container(
+                  child: SizedBox(
+                    width: wid,
+                    child: Image.asset(
+                      'images/central.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -280,7 +307,15 @@ class _LineupState extends State<Lineup> {
                 boundaryMargin: const EdgeInsets.all(0),
                 minScale: 0.1,
                 maxScale: 1.6,
-                child: Image.asset("images/pangea.png"),
+                child: Container(
+                  child: SizedBox(
+                    width: wid,
+                    child: Image.asset(
+                      'images/pangea.png',
+                      fit: BoxFit.fitWidth,
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
@@ -299,13 +334,16 @@ class _LineupState extends State<Lineup> {
             decoration: BoxDecoration(
               color: const Color(0xff252732),
             ),
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  index = 0;
-                });
-              },
-              child: StageText("SPELLART"),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    index = 0;
+                  });
+                },
+                child: StageText("SPELLART"),
+              ),
             ),
           ),
         ),
@@ -315,13 +353,16 @@ class _LineupState extends State<Lineup> {
             decoration: BoxDecoration(
               color: const Color(0xff252732),
             ),
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  index = 1;
-                });
-              },
-              child: StageText("CENTRAL"),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    index = 1;
+                  });
+                },
+                child: StageText("CENTRAL"),
+              ),
             ),
           ),
         ),
@@ -331,13 +372,16 @@ class _LineupState extends State<Lineup> {
             decoration: BoxDecoration(
               color: const Color(0xff252732),
             ),
-            child: TextButton(
-              onPressed: () {
-                setState(() {
-                  index = 2;
-                });
-              },
-              child: StageText("PANGEA"),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    index = 2;
+                  });
+                },
+                child: StageText("PANGEA"),
+              ),
             ),
           ),
         ),
@@ -360,9 +404,15 @@ class Map extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double hei = screenSize.height;
+    double wid = screenSize.width;
+    double bannerHei = hei * 0.1;
     return Scaffold(
       backgroundColor: Color(0xff48887a),
       appBar: AppBar(
+        toolbarHeight: bannerHei,
+        backgroundColor: Color(0xff223a3a),
         title: Align(
           alignment: Alignment.centerLeft,
           child: Text(
@@ -379,11 +429,17 @@ class Map extends StatelessWidget {
       body: Container(
         //lets you scroll
         child: InteractiveViewer(
-          boundaryMargin: const EdgeInsets.all(10.0),
+          boundaryMargin: const EdgeInsets.all(0),
           minScale: 0.1,
           maxScale: 1.6,
-          child: Center(
-            child: Image.asset('images/Map.png'),
+          child: Container(
+            child: SizedBox(
+              width: wid,
+              child: Image.asset(
+                'images/Map.png',
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
         ),
       ),
@@ -396,8 +452,14 @@ class Info extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size screenSize = MediaQuery.of(context).size;
+    double hei = screenSize.height;
+    double wid = screenSize.width;
+    double bannerHei = hei * 0.1;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        toolbarHeight: bannerHei,
         backgroundColor: Color(0xffb68df5),
         title: Align(
           alignment: Alignment.centerLeft,
@@ -412,11 +474,23 @@ class Info extends StatelessWidget {
           ),
         ),
       ),
-      body: Scrollbar(
-        isAlwaysShown: true,
-        //lets you scroll
-        child: SingleChildScrollView(
-          child: Image.asset('images/guide.png'),
+      body: Container(
+        child: Center(
+          child: Scrollbar(
+            isAlwaysShown: true,
+            //lets you scroll
+            child: SingleChildScrollView(
+              child: Container(
+                child: SizedBox(
+                  width: wid,
+                  child: Image.asset(
+                    'images/guide.png',
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
