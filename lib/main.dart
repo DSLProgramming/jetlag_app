@@ -205,7 +205,7 @@ class _MyHomePageState extends State<MyHomePage> {
         contents,
         style: TextStyle(
           fontFamily: 'Lato',
-          fontWeight: FontWeight.w700,
+          fontWeight: FontWeight.w600,
           color: Colors.black,
           fontSize: 20,
         ),
