@@ -48,7 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double hei = screenSize.height;
-    double wid = screenSize.height;
     double bannerHei = hei * 0.2;
 
     // This method is rerun every time setState is called, for instance as done
@@ -89,8 +88,6 @@ class _MyHomePageState extends State<MyHomePage> {
       );
 
   Widget mainScreen() {
-    Size screenSize = MediaQuery.of(context).size;
-    double wid = screenSize.width;
     return Expanded(
       child: Scrollbar(
         isAlwaysShown: true,
@@ -136,10 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
           flex: 1,
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xff252732),
+              color: Color(0xff252732),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
               child: TextButton(
                 onPressed: () {
                   Navigator.push(
@@ -147,7 +142,43 @@ class _MyHomePageState extends State<MyHomePage> {
                     MaterialPageRoute(builder: (context) => Map()),
                   );
                 },
-                child: navButtonText("Map"),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(
+                      Icons.map_sharp,
+                      color: Colors.white,
+                      size: 50.0,
+                    ),
+                    navButtonText('Map'),
+                  ],
+                ),
+              ),
+            ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xff252732),
+            ),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Lineup()),
+                );
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.queue_music_sharp,
+                    color: Colors.white,
+                    size: 50.0,
+                  ),
+                  navButtonText('Lineup'),
+                ],
               ),
             ),
           ),
@@ -156,38 +187,25 @@ class _MyHomePageState extends State<MyHomePage> {
           flex: 1,
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xff252732),
+              color: Color(0xff252732),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Lineup()),
-                  );
-                },
-                child: navButtonText("Lineup"),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Container(
-            decoration: BoxDecoration(
-              color: const Color(0xff252732),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Info()),
-                  );
-                },
-                child: navButtonText("Info"),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Info()),
+                );
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.question_mark_sharp,
+                    color: Colors.white,
+                    size: 50.0,
+                  ),
+                  navButtonText('Info'),
+                ],
               ),
             ),
           ),
@@ -212,7 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
           fontFamily: 'Lato',
           fontWeight: FontWeight.w400,
           color: Colors.white,
-          fontSize: 30,
+          fontSize: 17,
         ),
       );
 }
@@ -229,7 +247,6 @@ class _LineupState extends State<Lineup> {
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
     double hei = screenSize.height;
-    double wid = screenSize.width;
     double bannerHei = hei * 0.1;
     return Scaffold(
       backgroundColor: Color(0xff489082),
