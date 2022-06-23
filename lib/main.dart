@@ -99,22 +99,46 @@ class _MyHomePageState extends State<MyHomePage> {
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Padding(
-                  padding: EdgeInsets.fromLTRB(10, 15, 10, 5),
+                  padding: EdgeInsets.fromLTRB(10, 15, 10, 0),
                   child: Image.asset('images/tomLogo.jpg'),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, 4, 0, 10),
-                  child: mainTitleText("\nJETLAG-2022 SERENDIPITY: NO WAR"),
+                  padding: EdgeInsets.fromLTRB(0, 30, 0, 15),
+                  child: Center(
+                    child: Text(
+                      "JETLAG-2022 SERENDIPITY: \nNO WAR",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,
+                        fontSize: 35,
+                      ),
+                    ),
+                  ),
                 ),
                 Text(
                   "The JetLAG-2022 program will be focusing on the anti-war message and a fundraiser, although we wish and hope that Russia's aggression in Ukraine would stop by then. \nWe know that even once it’s over, a more continuous, global and vicious circle of war, violence, repressions, hatred, partitioning, division and displacement, will be still ongoing as it has always been. \nWe, therefore, see it as a time to contemplate the roots of a great tradition of open-air music festivals countering this evil with the wisdom, beauty and boldness of the liberal and transformational arts, striving for freedom, peace and justice, for a better world to come.",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontFamily: 'Lato',
-                    fontWeight: FontWeight.w400,
+                    fontFamily: 'SourceSansPro',
+                    fontWeight: FontWeight.w500,
                     color: Colors.black,
                     fontSize: 20,
                     height: 2.0,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    "Made by Dan Leykin",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'SourceSansPro',
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontSize: 15,
+                    ),
                   ),
                 ),
               ]),
@@ -135,26 +159,26 @@ class _MyHomePageState extends State<MyHomePage> {
             decoration: BoxDecoration(
               color: Color(0xff252732),
             ),
-              child: TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Map()),
-                  );
-                },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(
-                      Icons.map_sharp,
-                      color: Colors.white,
-                      size: 50.0,
-                    ),
-                    navButtonText('Map'),
-                  ],
-                ),
+            child: TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Map()),
+                );
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Icon(
+                    Icons.map_sharp,
+                    color: Colors.white,
+                    size: 50.0,
+                  ),
+                  navButtonText('Map'),
+                ],
               ),
             ),
+          ),
         ),
         Expanded(
           flex: 1,
@@ -214,23 +238,13 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  Widget mainTitleText(String contents) => Text(
-        contents,
-        style: TextStyle(
-          fontFamily: 'Lato',
-          fontWeight: FontWeight.w600,
-          color: Colors.black,
-          fontSize: 20,
-        ),
-      );
-
   Widget navButtonText(String contents) => Text(
         contents,
         style: TextStyle(
-          fontFamily: 'Lato',
-          fontWeight: FontWeight.w400,
+          fontFamily: 'Nunito',
+          fontWeight: FontWeight.w600,
           color: Colors.white,
-          fontSize: 17,
+          fontSize: 18,
         ),
       );
 }
@@ -259,7 +273,8 @@ class _LineupState extends State<Lineup> {
             '2022 Artist Lineup',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontWeight: FontWeight.w500,
+              fontFamily: 'Nunito',
+              fontWeight: FontWeight.w600,
               color: Colors.white,
               fontSize: 30,
             ),
@@ -409,6 +424,7 @@ class _LineupState extends State<Lineup> {
   Widget StageText(String contents) => Text(
         contents,
         style: TextStyle(
+          fontFamily: 'Nunito',
           color: Colors.white,
           fontSize: 20,
           fontWeight: FontWeight.w400,
@@ -436,7 +452,8 @@ class Map extends StatelessWidget {
             'Festival Map',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontWeight: FontWeight.w500,
+              fontFamily: 'SourceSansPro',
+              fontWeight: FontWeight.w600,
               color: Colors.white,
               fontSize: 30,
             ),
